@@ -1,16 +1,16 @@
-package pruebaconceptosparcial;
+package controlador;
 
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.sql.*;
+import java.util.ArrayList;
+import modelo.Cliente;
 
-public class PruebaConceptosParcial {
+public class ControladorClientes {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        //Class.forName("com.mysql.cj.jdbc.Driver");
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    public ArrayList<Cliente> obtenerClientes() throws SQLException {
+
+        ArrayList<Cliente> clientes = new ArrayList<>();
 
         try {
             //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/ACADEMIA", "root", "1959Marcos");
@@ -31,15 +31,18 @@ public class PruebaConceptosParcial {
                 int nroTel = rs.getInt(7);
                 String email = rs.getString(8);
 
-                System.out.println("CLIENTE N°: " + id + "; nombre: " + nombre + "; apellido: " + apellido + "; calle: " + calle + "; altura: " + altura);
+                Cliente nuevoCliente = new Cliente(id, nombre, apellido, calle, altura, codigoBarrio, nroTel, email);
+                clientes.add(nuevoCliente);
             }
 
             rs.close();
             st.close();
             conn.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return clientes;
     }
+
 }
