@@ -1,6 +1,8 @@
 package com.labo4.clase1SpringBoot;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 //para que esta clase contenga endpoints, se la debe anotar como rest controller
@@ -21,7 +23,8 @@ public class ControladorHola {
     }
     
     @GetMapping("/numeros")
-    public int[] numeros(){
-        return new Random().ints(100, 0, 10000).toArray();
+    public List<Integer> numeros(){
+        //return new Random().ints(100, 0, 10000).toArray();
+        return new Random().ints(100,0,10000).boxed().collect(Collectors.toList());
     }
 }
