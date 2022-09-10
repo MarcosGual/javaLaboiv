@@ -45,4 +45,7 @@ public class ControladorClientes {
         return clientes;
     }
 
+    public boolean agregarCliente(Cliente nuevoCliente){
+        return false;
+    }
 }

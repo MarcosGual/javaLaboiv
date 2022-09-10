@@ -11,7 +11,8 @@ public class Cliente {
     int nroTel;
     String email;
 
-    public Cliente(String nombre, String apellido, String calle, int altura, int codigoBarrio, int nroTel, String email) {
+    public Cliente(int id, String nombre, String apellido, String calle, int altura, int codigoBarrio, int nroTel, String email) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.calle = calle;
