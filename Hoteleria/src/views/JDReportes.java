@@ -8,7 +8,9 @@ import controllers.ControladorServicio;
 import dtos.ConsumoDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.Habitacion;
+import model.Servicio;
 
 /**
  *
@@ -41,7 +43,10 @@ public class JDReportes extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstHabitaciones = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtbServicios = new javax.swing.JTable();
+        btnConsulta = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtTotalServicios = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -50,7 +55,7 @@ public class JDReportes extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(lstHabitaciones);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbServicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -61,22 +66,45 @@ public class JDReportes extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jtbServicios);
+
+        btnConsulta.setText("Consultar");
+        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("TOTAL SERVICIOS:");
+
+        txtTotalServicios.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(260, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(243, 243, 243))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 112, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(34, 34, 34)
+                        .addComponent(txtTotalServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,19 +115,44 @@ public class JDReportes extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtTotalServicios))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        // TODO add your handling code here:
+        Habitacion habitacion = (Habitacion) this.lstHabitaciones.getSelectedValue();
+        List<Servicio> servicios = controller.obtenerServicioPorHabitacion(habitacion);
+        DefaultTableModel modelo = new DefaultTableModel(new String[]{"Servicio","Concepto","Precio"}, 0);
+        
+        float total=0;
+        for (Servicio s : servicios) {
+            modelo.addRow(new Object[]{s.getIdServicio(), s.getConcepto(), s.getPrecio()});
+            total+=s.getPrecio();
+        }
+        
+        jtbServicios.setModel(modelo);
+
+        txtTotalServicios.setText(String.valueOf(total));
+    }//GEN-LAST:event_btnConsultaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsulta;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtbServicios;
     private javax.swing.JList<Object> lstHabitaciones;
+    private javax.swing.JLabel txtTotalServicios;
     // End of variables declaration//GEN-END:variables
 
     private void initConsumos() {
@@ -110,7 +163,7 @@ public class JDReportes extends javax.swing.JDialog {
     }
 
     private void initHabitaciones() {
-        List<Habitacion> habitaciones=controller.obtenerHabitaciones();
+        List<Habitacion> habitaciones = controller.obtenerHabitaciones();
         lstHabitaciones.setListData(habitaciones.toArray());
     }
 }

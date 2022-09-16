@@ -96,4 +96,29 @@ public class ControladorServicio {
 
         return arrayConsumos;
     }
+
+    public List<Servicio> obtenerServicioPorHabitacion(Habitacion h) {
+        List<Servicio> servicios = new ArrayList();
+
+        try {
+            Connection conn = DriverManager.getConnection(conexion, "admin", "1959marcos");
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from servicios s where s.idHabitacion="+h.getNroHabitacion());
+
+            while (rs.next()) {
+                int idServicio = rs.getInt("idServicio");
+                String concepto = rs.getString("concepto");
+                float nombre = rs.getFloat("precio");
+                int idHabitacion = rs.getInt("idHabitacion");
+                servicios.add(new Servicio(idServicio, concepto, nombre, h));
+            }
+
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorServicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return servicios;
+    }
 }
