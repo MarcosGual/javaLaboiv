@@ -8,6 +8,7 @@ import controllers.ControladorServicio;
 import dtos.ConsumoDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Habitacion;
 import model.Servicio;
@@ -28,6 +29,7 @@ public class JDReportes extends javax.swing.JDialog {
         initComponents();
         this.controller = controller;
         this.initHabitaciones();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -128,19 +130,24 @@ public class JDReportes extends javax.swing.JDialog {
 
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
         // TODO add your handling code here:
-        Habitacion habitacion = (Habitacion) this.lstHabitaciones.getSelectedValue();
-        List<Servicio> servicios = controller.obtenerServicioPorHabitacion(habitacion);
-        DefaultTableModel modelo = new DefaultTableModel(new String[]{"Servicio","Concepto","Precio"}, 0);
-        
-        float total=0;
-        for (Servicio s : servicios) {
-            modelo.addRow(new Object[]{s.getIdServicio(), s.getConcepto(), s.getPrecio()});
-            total+=s.getPrecio();
-        }
-        
-        jtbServicios.setModel(modelo);
+        if (lstHabitaciones.getSelectedIndex() < 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione una habitación...");
+        } else {
 
-        txtTotalServicios.setText(String.valueOf(total));
+            Habitacion habitacion = (Habitacion) this.lstHabitaciones.getSelectedValue();
+            List<Servicio> servicios = controller.obtenerServicioPorHabitacion(habitacion);
+            DefaultTableModel modelo = new DefaultTableModel(new String[]{"Servicio", "Concepto", "Precio"}, 0);
+
+            float total = 0;
+            for (Servicio s : servicios) {
+                modelo.addRow(new Object[]{s.getIdServicio(), s.getConcepto(), s.getPrecio()});
+                total += s.getPrecio();
+            }
+
+            jtbServicios.setModel(modelo);
+
+            txtTotalServicios.setText(String.valueOf(total));
+        }
     }//GEN-LAST:event_btnConsultaActionPerformed
 
 

@@ -150,23 +150,27 @@ public class JDAltaServicio extends javax.swing.JDialog {
     private void btnAgregarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarServicioActionPerformed
         // TODO add your handling code here:
 
-        try {
-            float precio = Float.parseFloat(txtPrecio.getText());
-            Habitacion habitacion = (Habitacion) cboHabitaciones.getSelectedItem();
-            Servicio s = new Servicio(0, txtConcepto.getText(), precio, habitacion);
-            controller.registrarServicio(s);
-            JOptionPane.showMessageDialog(this, "Servicio registrado!");
-            this.dispose();
+        if (txtPrecio.getText().isEmpty() || txtConcepto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor llene todos los campos...");
+        } else {
+            try {
+                float precio = Float.parseFloat(txtPrecio.getText());
+                Habitacion habitacion = (Habitacion) cboHabitaciones.getSelectedItem();
+                Servicio s = new Servicio(0, txtConcepto.getText(), precio, habitacion);
 
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error en los datos");
+                controller.registrarServicio(s);
+                JOptionPane.showMessageDialog(this, "Servicio registrado!");
+                this.dispose();
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error en los datos");
+            }
         }
     }//GEN-LAST:event_btnAgregarServicioActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarServicio;
