@@ -23,11 +23,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnAgregar" min="-2" pref="75" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="248" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -40,7 +35,6 @@
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtAltura" min="-2" pref="162" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="txtCalle" min="-2" pref="162" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -66,6 +60,14 @@
                               </Group>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="txtBarrio" min="-2" pref="162" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="btnAgregar" min="-2" pref="92" max="-2" attributes="0"/>
+                                  <Component id="txtAltura" min="-2" pref="162" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnCerrar" min="-2" pref="92" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -106,7 +108,10 @@
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnAgregar" min="-2" pref="36" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnAgregar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="btnCerrar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -180,6 +185,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="ALTA DE CLIENTES"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCerrar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cerrar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

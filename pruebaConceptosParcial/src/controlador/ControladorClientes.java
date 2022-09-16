@@ -8,9 +8,10 @@ import modelo.Cliente;
 
 public class ControladorClientes {
 
-    public ArrayList<Cliente> obtenerClientes() throws SQLException {
+    public String[] obtenerClientes() throws SQLException {
 
-        ArrayList<Cliente> clientes = new ArrayList<>();
+        ArrayList<String> clientes = new ArrayList<>();
+        String[] arrayClientes;
 
         try {
             //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/ACADEMIA", "root", "1959Marcos");
@@ -32,25 +33,29 @@ public class ControladorClientes {
                 String email = rs.getString(8);
 
                 Cliente nuevoCliente = new Cliente(id, nombre, apellido, calle, altura, codigoBarrio, nroTel, email);
-                clientes.add(nuevoCliente);
+                clientes.add(nuevoCliente.toString());
             }
 
             rs.close();
             st.close();
             conn.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(ControladorClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return clientes;
+        arrayClientes = new String[clientes.size()];
+        clientes.toArray(arrayClientes);
+
+        return arrayClientes;
     }
 
-    public boolean agregarCliente(Cliente nuevoCliente){
-        try{
+    public boolean agregarCliente(Cliente nuevoCliente) {
+        try {
             Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LIBRERIA;TrustServerCertificate=true", "admin", "1959marcos");
-            
+
             //Statement st=conn.createStatement();
-            PreparedStatement st=conn.prepareStatement("insert into Clientes (nom_cliente, ape_cliente, calle, altura, cod_barrio, nro_tel, [e-mail]) values(?,?,?,?,?,?,?)");
+            PreparedStatement st = conn.prepareStatement("insert into Clientes (nom_cliente, ape_cliente, calle, altura, cod_barrio, nro_tel, [e-mail]) values(?,?,?,?,?,?,?)");
             st.setString(1, nuevoCliente.getNombre());
             st.setString(2, nuevoCliente.getApellido());
             st.setString(3, nuevoCliente.getCalle());
@@ -58,13 +63,12 @@ public class ControladorClientes {
             st.setInt(5, nuevoCliente.getCodigoBarrio());
             st.setInt(6, nuevoCliente.getNroTel());
             st.setString(7, nuevoCliente.getEmail());
-            
-            
+
             st.executeUpdate();
-            
+
             st.close();
             conn.close();
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ControladorClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;

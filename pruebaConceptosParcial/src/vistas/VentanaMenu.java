@@ -4,6 +4,10 @@
  */
 package vistas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author marco
@@ -75,8 +79,12 @@ public class VentanaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAltaClientesActionPerformed
 
     private void btnListadoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoClientesActionPerformed
-        // TODO add your handling code here:
-        new VentanaListado().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new VentanaListado().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnListadoClientesActionPerformed
 
     /**
