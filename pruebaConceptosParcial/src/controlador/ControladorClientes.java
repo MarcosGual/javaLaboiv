@@ -46,6 +46,27 @@ public class ControladorClientes {
     }
 
     public boolean agregarCliente(Cliente nuevoCliente){
+        try{
+            Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LIBRERIA;TrustServerCertificate=true", "admin", "1959marcos");
+            
+            //Statement st=conn.createStatement();
+            PreparedStatement st=conn.prepareStatement("insert into Clientes (nom_cliente, ape_cliente, calle, altura, cod_barrio, nro_tel, [e-mail]) values(?,?,?,?,?,?,?)");
+            st.setString(1, nuevoCliente.getNombre());
+            st.setString(2, nuevoCliente.getApellido());
+            st.setString(3, nuevoCliente.getCalle());
+            st.setInt(4, nuevoCliente.getAltura());
+            st.setInt(5, nuevoCliente.getCodigoBarrio());
+            st.setInt(6, nuevoCliente.getNroTel());
+            st.setString(7, nuevoCliente.getEmail());
+            
+            
+            st.executeUpdate();
+            
+            st.close();
+            conn.close();
+        }catch (SQLException ex) {
+            Logger.getLogger(ControladorClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return false;
     }
 }

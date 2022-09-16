@@ -1,45 +1,35 @@
 package pruebaconceptosparcial;
 
+import controlador.ControladorClientes;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import modelo.Cliente;
+import vistas.VentanaMenu;
 
 public class PruebaConceptosParcial {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        //Class.forName("com.mysql.cj.jdbc.Driver");
+
+        /*ControladorClientes controlador = new ControladorClientes();
+
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-        try {
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/ACADEMIA", "root", "1959Marcos");
-            Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=LIBRERIA;TrustServerCertificate=true", "admin", "1959marcos");
-
-            //System.out.println(conn.isClosed());
-            //System.out.println("Conexión establecida exitosamente...");
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from clientes");
-
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String nombre = rs.getString(2);
-                String apellido = rs.getString(3);
-                String calle = rs.getString(4);
-                int altura = rs.getInt(5);
-                int codigoBarrio = rs.getInt(6);
-                int nroTel = rs.getInt(7);
-                String email = rs.getString(8);
-
-                System.out.println("CLIENTE N°: " + id + "; nombre: " + nombre + "; apellido: " + apellido + "; calle: " + calle + "; altura: " + altura);
-            }
-
-            rs.close();
-            st.close();
-            conn.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Cliente c = new Cliente(0, "Benito", "Juárez", "Guillermo Marconi", 2553, 2, 11500233, "benito_1998@hotmail.com");
+        controlador.agregarCliente(c);
+        
+        ArrayList<Cliente> clientes=controlador.obtenerClientes();
+        
+        for(Cliente cl: clientes){
+                System.out.println("CLIENTE N°: " + cl.getId() + "; nombre: " + cl.getNombre() + "; apellido: " + cl.getApellido() 
+                        + "; calle: " + cl.getCalle() + "; altura: " + cl.getAltura());
+        }*/
+        
+        new VentanaMenu().setVisible(true);
     }
 }
